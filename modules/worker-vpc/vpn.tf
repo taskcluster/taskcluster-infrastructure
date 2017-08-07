@@ -37,3 +37,9 @@ resource "aws_vpn_connection" "vpc-vpn" {
         Name = "${var.name}-${element(var._mozilla_vpn_datacenters, count.index)}"
     }
 }
+
+resource "aws_route" "vpn" {
+  route_table_id = "${aws_route_table.mod.id}"
+  destination_cidr_block = "10.0.0.0/8"
+  gateway_id = "${aws_vpn_gateway.vpc-vgw.id}"
+}
