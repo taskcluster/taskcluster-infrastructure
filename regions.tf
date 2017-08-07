@@ -132,5 +132,5 @@ module "eu-central-1-gecko-workers" {
         "eu-central-1b",
         "eu-central-1c",
     ]
+    admin_subnet = true
 }
-
