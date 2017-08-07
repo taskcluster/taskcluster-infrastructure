@@ -2,15 +2,16 @@ variable "aws_access_key" {}
 variable "aws_secret_key" {}
 
 variable "region" {
-    description = "AWS region to configure"
+  description = "AWS region to configure"
 }
 
 # ---
 
 provider "aws" {
-    access_key = "${var.aws_access_key}"
-    secret_key = "${var.aws_secret_key}"
-    region = "${var.region}"
+  access_key = "${var.aws_access_key}"
+  secret_key = "${var.aws_secret_key}"
+  region     = "${var.region}"
 }
 
 # ---
+

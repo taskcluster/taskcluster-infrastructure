@@ -111,27 +111,29 @@ module "us-east-2-gecko-workers" {
 */
 
 module "eu-central-1" {
-    source = "./modules/worker-region"
+  source = "./modules/worker-region"
 
-    aws_access_key = "${var.aws_access_key}"
-    aws_secret_key = "${var.aws_secret_key}"
-    region = "eu-central-1"
+  aws_access_key = "${var.aws_access_key}"
+  aws_secret_key = "${var.aws_secret_key}"
+  region         = "eu-central-1"
 }
 
 module "eu-central-1-gecko-workers" {
-    source = "./modules/worker-vpc"
+  source = "./modules/worker-vpc"
 
-    aws_access_key = "${var.aws_access_key}"
-    aws_secret_key = "${var.aws_secret_key}"
-    region = "eu-central-1"
+  aws_access_key = "${var.aws_access_key}"
+  aws_secret_key = "${var.aws_secret_key}"
+  region         = "eu-central-1"
 
-    name = "gecko-workers"
-    cidr = "10.147.0.0/16"
-    availability_zones = [
-        "eu-central-1a",
-        "eu-central-1b",
-        "eu-central-1c",
-    ]
-    admin_subnet = true
-    mozilla_vpn_tunnel = true
+  name = "gecko-workers"
+  cidr = "10.147.0.0/16"
+
+  availability_zones = [
+    "eu-central-1a",
+    "eu-central-1b",
+    "eu-central-1c",
+  ]
+
+  admin_subnet       = true
+  mozilla_vpn_tunnel = true
 }

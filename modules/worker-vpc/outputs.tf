@@ -3,5 +3,5 @@ output "vpc_id" {
 }
 
 output "subnet_ids" {
- value = "${join(", ", aws_subnet.mod.*.id)}"
+  value = "${join(", ", aws_subnet.mod.*.id)}"
 }
