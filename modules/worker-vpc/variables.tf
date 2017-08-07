@@ -23,3 +23,7 @@ variable "admin_subnet" {
     default = false
 }
 
+variable "mozilla_vpn_tunnel" {
+    description = "Should this VPC have tunnels configured to Mozilla DCs?"
+    default = false
+}

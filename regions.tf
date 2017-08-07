@@ -133,4 +133,5 @@ module "eu-central-1-gecko-workers" {
         "eu-central-1c",
     ]
     admin_subnet = true
+    mozilla_vpn_tunnel = true
 }
