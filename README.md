@@ -1,5 +1,7 @@
 # taskcluster-terraform
 
+This is a work in progress to define the Taskcluster team's AWS configuration in Terraform.
+
 # Running
 
 The user must specify an `aws_access_key`, and `aws_secret_key`.
