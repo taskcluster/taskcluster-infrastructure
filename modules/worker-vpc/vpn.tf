@@ -46,6 +46,7 @@ resource "aws_vpn_connection" "vpc-vpn" {
 
 # propagate routes received via BGP from Mozilla
 resource "aws_vpn_gateway_route_propagation" "vpc-vpn" {
+  count          = "${var.mozilla_vpn_tunnel}"
   vpn_gateway_id = "${aws_vpn_gateway.vpc-vgw.id}"
   route_table_id = "${aws_route_table.mod.id}"
 }
