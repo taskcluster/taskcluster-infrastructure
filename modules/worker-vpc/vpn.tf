@@ -17,7 +17,7 @@ resource "aws_vpn_gateway" "vpc-vgw" {
   vpc_id = "${aws_vpc.mod.id}"
 
   tags {
-    Name = "${var.name}-${element(var._mozilla_vpn_datacenters, count.index)}"
+    Name = "${var.name}"
   }
 }
 
