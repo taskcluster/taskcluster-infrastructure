@@ -1,15 +1,15 @@
 # constants for mozilla tunnels; the indexes of values in each variable must match; these
 # are not meant to be supplied by the caller
 variable "_mozilla_vpn_datacenters" {
-  default = ["mdc1", "scl3"]
+  default = ["mdc1", "releng.scl3"]
 }
 
 variable "_mozilla_vpn_bgp_asns" {
-  default = ["65048", "65022"]
+  default = ["65048", "65026"]
 }
 
 variable "_mozilla_vpn_ip_addresses" {
-  default = ["63.245.208.251", "63.245.214.100"]
+  default = ["63.245.208.251", "63.245.214.82"]
 }
 
 resource "aws_vpn_gateway" "vpc-vgw" {
