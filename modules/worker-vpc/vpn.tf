@@ -37,7 +37,7 @@ resource "aws_vpn_connection" "vpc-vpn" {
   vpn_gateway_id      = "${aws_vpn_gateway.vpc-vgw.id}"
   customer_gateway_id = "${element(aws_customer_gateway.vpc-cgw.*.id, count.index)}"
   type                = "ipsec.1"
-  static_routes_only  = true
+  static_routes_only  = false
 
   tags {
     Name = "${var.name}-${element(var._mozilla_vpn_datacenters, count.index)}"
