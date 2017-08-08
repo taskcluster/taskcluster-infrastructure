@@ -1,6 +1,7 @@
 resource "aws_security_group" "docker-worker" {
   name        = "docker-worker - ${var.name}"
   description = "Allow inbound traffic to ephemeral ports, all outbound"
+  vpc_id      = "${aws_vpc.mod.id}"
 
   tags {
     Name = "docker-worker"
@@ -25,6 +26,7 @@ resource "aws_security_group" "docker-worker" {
 resource "aws_security_group" "livelog-direct" {
   name        = "livelog-direct - ${var.name}"
   description = "For connecting to livelog GET interface running directly on host"
+  vpc_id      = "${aws_vpc.mod.id}"
 
   tags {
     Name = "livelog-direct"
@@ -49,6 +51,7 @@ resource "aws_security_group" "livelog-direct" {
 resource "aws_security_group" "rdp-only" {
   name        = "rdp-only - ${var.name}"
   description = "RDP only"
+  vpc_id      = "${aws_vpc.mod.id}"
 
   tags {
     Name = "rdp-only"
@@ -73,6 +76,7 @@ resource "aws_security_group" "rdp-only" {
 resource "aws_security_group" "ssh-only" {
   name        = "ssh-only - ${var.name}"
   description = "SSH only"
+  vpc_id      = "${aws_vpc.mod.id}"
 
   tags {
     Name = "ssh-only"
@@ -97,6 +101,7 @@ resource "aws_security_group" "ssh-only" {
 resource "aws_security_group" "no-inbound" {
   name        = "no-inbound - ${var.name}"
   description = "Deny all inbound traffic. Allow all outbound traffic only"
+  vpc_id      = "${aws_vpc.mod.id}"
 
   tags {
     Name = "no-inbound"
