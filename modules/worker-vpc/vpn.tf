@@ -44,8 +44,8 @@ resource "aws_vpn_connection" "vpc-vpn" {
   }
 }
 
-resource "aws_route" "vpn" {
-  route_table_id         = "${aws_route_table.mod.id}"
-  destination_cidr_block = "10.0.0.0/8"
-  gateway_id             = "${aws_vpn_gateway.vpc-vgw.id}"
+# propagate routes received via BGP from Mozilla
+resource "aws_vpn_gateway_route_propagation" "vpc-vpn" {
+  vpn_gateway_id = "${aws_vpn_gateway.vpc-vgw.id}"
+  route_table_id = "${aws_route_table.mod.id}"
 }

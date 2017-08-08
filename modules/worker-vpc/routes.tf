@@ -6,6 +6,8 @@ resource "aws_route_table" "mod" {
   }
 }
 
+# Internet access
+
 resource "aws_route" "mod" {
   route_table_id         = "${aws_route_table.mod.id}"
   destination_cidr_block = "0.0.0.0/0"
