@@ -19,6 +19,23 @@ resource "aws_s3_bucket" "sccache_bucket_us_west_2" {
       days = 15
     }
   }
+
+  policy = <<EOF
+    {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "PublicRead",
+          "Effect": "Allow",
+          "Principal": {
+            "AWS": "*"
+          },
+          "Action": "s3:GetObject",
+          "Resource": "arn:aws:s3:::${var.prefix}-level-${var.levels[count.index]}-sccache-us-west-2/*"
+        }
+      ]
+    }
+EOF
 }
 
 resource "aws_s3_bucket" "sccache_bucket_us_west_1" {
@@ -37,6 +54,58 @@ resource "aws_s3_bucket" "sccache_bucket_us_west_1" {
       days = 15
     }
   }
+
+  policy = <<EOF
+    {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "PublicRead",
+          "Effect": "Allow",
+          "Principal": {
+            "AWS": "*"
+          },
+          "Action": "s3:GetObject",
+          "Resource": "arn:aws:s3:::${var.prefix}-level-${var.levels[count.index]}-sccache-us-west-1/*"
+        }
+      ]
+    }
+EOF
+}
+
+resource "aws_s3_bucket" "sccache_bucket_us_east_1" {
+  count = "${length(var.levels)}"
+
+  bucket   = "${var.prefix}-level-${var.levels[count.index]}-sccache-us-east-1"
+  region   = "us-east-1"
+  provider = "aws.us_east_1"
+
+  lifecycle_rule {
+    id      = "expired-after-15d"
+    enabled = true
+    prefix  = "/"
+
+    expiration {
+      days = 15
+    }
+  }
+
+  policy = <<EOF
+    {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "PublicRead",
+          "Effect": "Allow",
+          "Principal": {
+            "AWS": "*"
+          },
+          "Action": "s3:GetObject",
+          "Resource": "arn:aws:s3:::${var.prefix}-level-${var.levels[count.index]}-sccache-us-east-1/*"
+        }
+      ]
+    }
+EOF
 }
 
 resource "aws_s3_bucket" "sccache_bucket_us_east_2" {
@@ -55,6 +124,23 @@ resource "aws_s3_bucket" "sccache_bucket_us_east_2" {
       days = 15
     }
   }
+
+  policy = <<EOF
+    {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "PublicRead",
+          "Effect": "Allow",
+          "Principal": {
+            "AWS": "*"
+          },
+          "Action": "s3:GetObject",
+          "Resource": "arn:aws:s3:::${var.prefix}-level-${var.levels[count.index]}-sccache-us-east-2/*"
+        }
+      ]
+    }
+EOF
 }
 
 resource "aws_s3_bucket" "sccache_bucket_eu_central_1" {
@@ -73,4 +159,21 @@ resource "aws_s3_bucket" "sccache_bucket_eu_central_1" {
       days = 15
     }
   }
+
+  policy = <<EOF
+    {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "PublicRead",
+          "Effect": "Allow",
+          "Principal": {
+            "AWS": "*"
+          },
+          "Action": "s3:GetObject",
+          "Resource": "arn:aws:s3:::${var.prefix}-level-${var.levels[count.index]}-sccache-eu-central-1/*"
+        }
+      ]
+    }
+EOF
 }
