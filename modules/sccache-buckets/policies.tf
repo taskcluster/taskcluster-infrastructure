@@ -19,6 +19,7 @@ resource "aws_iam_policy" "sccache_policies" {
       "Resource": [
         "arn:aws:s3:::${var.prefix}-level-${var.levels[count.index]}-sccache-us-west-2/*",
         "arn:aws:s3:::${var.prefix}-level-${var.levels[count.index]}-sccache-us-west-1/*",
+        "arn:aws:s3:::${var.prefix}-level-${var.levels[count.index]}-sccache-us-east-1/*",
         "arn:aws:s3:::${var.prefix}-level-${var.levels[count.index]}-sccache-us-east-2/*",
         "arn:aws:s3:::${var.prefix}-level-${var.levels[count.index]}-sccache-eu-central-1/*"
       ]
@@ -34,6 +35,7 @@ resource "aws_iam_policy" "sccache_policies" {
       "Resource": [
         "arn:aws:s3:::${var.prefix}-level-${var.levels[count.index]}-sccache-us-west-2",
         "arn:aws:s3:::${var.prefix}-level-${var.levels[count.index]}-sccache-us-west-1",
+        "arn:aws:s3:::${var.prefix}-level-${var.levels[count.index]}-sccache-us-east-1",
         "arn:aws:s3:::${var.prefix}-level-${var.levels[count.index]}-sccache-us-east-2",
         "arn:aws:s3:::${var.prefix}-level-${var.levels[count.index]}-sccache-eu-central-1"
       ]

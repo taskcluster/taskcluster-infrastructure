@@ -16,6 +16,12 @@ provider "aws" {
 }
 
 provider "aws" {
+  region  = "us-east-1"
+  version = "~> 1.6"
+  alias   = "us_east_1"
+}
+
+provider "aws" {
   region  = "us-east-2"
   version = "~> 1.6"
   alias   = "us_east_2"
