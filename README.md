@@ -1,11 +1,10 @@
 Infrastructure Management for taskcluster
 =========================================
 
-Assumes environment variables:
- * `ARM_ACCESS_KEY` azure access credentials for storage account `tcterraformstate`.
- * `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_SESSION_TOKEN`, for our aws account.
-
 To run this do:
- * `eval $(pass azure/tcterraformstate.sh)`
+ * `eval $(pass terraform/secrets.sh)`
  * Set AWS environment variables
  * Use `terraform validate|plan|apply`
+
+Any secrets added should be documented as variables in `secrets.tf` and added
+to the `terraform/secrets.sh` script in password-store.
