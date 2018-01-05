@@ -7,6 +7,6 @@ module "tc-worker-qemu-v1" {
   taskcluster_access_token = "${var.tc_worker_qemu_access_token}"
   provisioner_id           = "terraform-packet"
   worker_type              = "tc-worker-qemu-v1"
-  facility                 = "sjc1"
+  facility                 = "ams1"
   project                  = "tc-worker-qemu-v1"
 }

@@ -1,7 +1,8 @@
 resource "packet_device" "workers" {
-  count            = "${var.number_of_machines}"
-  hostname         = "${var.worker_id_prefix}-${count.index}.${var.worker_type}"
-  project_id       = "${var.packet_project_id}"
+  count    = "${var.number_of_machines}"
+  hostname = "${var.worker_id_prefix}-${count.index}.${var.worker_type}"
+
+  project_id       = "${packet_project.taskcluster.id}"
   plan             = "baremetal_0"
   facility         = "${var.facility}"
   operating_system = "coreos_stable"
