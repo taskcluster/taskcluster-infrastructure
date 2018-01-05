@@ -2,7 +2,7 @@ Infrastructure Management for taskcluster
 =========================================
 
 To run this do:
- * `eval $(pass terraform/secrets.sh)`
+ * `eval "$(pass terraform/secrets.sh)"`
  * Set AWS environment variables
  * Use `terraform validate|plan|apply`
 
