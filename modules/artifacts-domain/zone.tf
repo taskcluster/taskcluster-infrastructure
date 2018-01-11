@@ -21,7 +21,7 @@ resource "aws_route53_record" "artifacts-domain-alias" {
     type = "A"
 
     alias {
-        name = "${var.cf_distribution_id}.cloudfront.net"
+        name = "${aws_cloudfront_distribution.artifact_distribution.domain_name}"
         // http://docs.aws.amazon.com/Route53/latest/APIReference/CreateAliasRRSAPI.html
         zone_id = "Z2FDTNDATAQYW2"
         evaluate_target_health = false
