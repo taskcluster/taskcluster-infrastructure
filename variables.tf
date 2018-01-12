@@ -30,22 +30,10 @@ variable "artifacts_primary_bucket" {
     default = "taskcluster-public-artifacts"
 }
 
-variable "artifacts_primary_bucket_region" {
-    type = "string"
-    default = "us-west-2"
-    // NOTE: this is assumed to be us-west-2 right now (TODO)
-}
-
 // The S3 bucket into which logs from the artifacts cloudfront distribution are
 // written.
 
 variable "artifacts_logging_bucket" {
     type = "string"
     default = "taskcluster-public-artifacts-logs"
-}
-
-variable "artifacts_logging_bucket_region" {
-    type = "string"
-    default = "us-west-2"
-    // NOTE: this is assumed to be us-west-2 right now (TODO)
 }

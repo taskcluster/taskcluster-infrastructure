@@ -1,11 +1,11 @@
 data "aws_s3_bucket" "primary_bucket" {
     bucket = "${var.primary_bucket}"
-    provider = "aws.us-west-2"  // TODO: use ${var.primary_bucket_region}
+    provider = "aws.primary_bucket"
 }
 
 data "aws_s3_bucket" "logging_bucket" {
     bucket = "${var.logging_bucket}"
-    provider = "aws.us-west-2"  // TODO: use ${var.logging_bucket_region}
+    provider = "aws.logging_bucket"
 }
 
 data "aws_acm_certificate" "domain" {

@@ -21,18 +21,8 @@ variable "primary_bucket" {
     type = "string"
 }
 
-variable "primary_bucket_region" {
-    type = "string"
-    // NOTE: this is assumed to be us-west-2 right now (TODO)
-}
-
 // The S3 bucket into which logs from the cloudfront distribution are written
 
 variable "logging_bucket" {
     type = "string"
-}
-
-variable "logging_bucket_region" {
-    type = "string"
-    // NOTE: this is assumed to be us-west-2 right now (TODO)
 }
