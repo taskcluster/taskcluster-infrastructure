@@ -8,7 +8,7 @@ resource "aws_s3_bucket" "sccache_bucket_us_west_2" {
 
   bucket   = "${var.prefix}-level-${var.levels[count.index]}-sccache-us-west-2"
   region   = "us-west-2"
-  provider = "aws.us_west_2"
+  provider = "aws.us-west-2"
 
   lifecycle_rule {
     id      = "expired-after-15d"
@@ -43,7 +43,7 @@ resource "aws_s3_bucket" "sccache_bucket_us_west_1" {
 
   bucket   = "${var.prefix}-level-${var.levels[count.index]}-sccache-us-west-1"
   region   = "us-west-1"
-  provider = "aws.us_west_1"
+  provider = "aws.us-west-1"
 
   lifecycle_rule {
     id      = "expired-after-15d"
@@ -78,7 +78,7 @@ resource "aws_s3_bucket" "sccache_bucket_us_east_1" {
 
   bucket   = "${var.prefix}-level-${var.levels[count.index]}-sccache-us-east-1"
   region   = "us-east-1"
-  provider = "aws.us_east_1"
+  provider = "aws.us-east-1"
 
   lifecycle_rule {
     id      = "expired-after-15d"
@@ -113,7 +113,7 @@ resource "aws_s3_bucket" "sccache_bucket_us_east_2" {
 
   bucket   = "${var.prefix}-level-${var.levels[count.index]}-sccache-us-east-2"
   region   = "us-east-2"
-  provider = "aws.us_east_2"
+  provider = "aws.us-east-2"
 
   lifecycle_rule {
     id      = "expired-after-15d"
@@ -148,7 +148,7 @@ resource "aws_s3_bucket" "sccache_bucket_eu_central_1" {
 
   bucket   = "${var.prefix}-level-${var.levels[count.index]}-sccache-eu-central-1"
   region   = "eu-central-1"
-  provider = "aws.eu_central_1"
+  provider = "aws.eu-central-1"
 
   lifecycle_rule {
     id      = "expired-after-15d"
