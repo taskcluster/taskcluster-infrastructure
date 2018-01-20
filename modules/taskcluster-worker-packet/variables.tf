@@ -17,7 +17,7 @@ variable "log_port" {
 variable "taskcluster_worker_hash" {
   type        = "string"
   description = "docker image hash for taskcluster-worker image"
-  default     = "1e44d165ef38ec85637778d2c413cdf2e27f3c99782e3585470593e3196085a1"
+  default     = "fe8c29966c48dc48e61cf2ef1b47bb373ea729867b93192cfa53bf7b7b043dc6"
 }
 
 variable "taskcluster_client_id" {
