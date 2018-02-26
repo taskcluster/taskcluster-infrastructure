@@ -15,6 +15,16 @@ resource "aws_route53_record" "artifacts-domain-ns" {
     ]
 }
 
+resource "aws_route53_record" "artifacts-domain-spf" {
+    zone_id = "${aws_route53_zone.artifacts-domain.zone_id}"
+    name = "${var.domain}"
+    type = "TXT"
+    ttl = "30"
+    records = [
+        "v=spf1 -all",
+    ]
+}
+
 resource "aws_route53_record" "artifacts-domain-alias" {
     zone_id = "${aws_route53_zone.artifacts-domain.zone_id}"
     name = "${var.domain}"
