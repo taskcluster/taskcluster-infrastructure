@@ -19,3 +19,19 @@ variable "tc_worker_qemu_client_id" {
 variable "tc_worker_qemu_access_token" {
   type = "string"
 }
+
+variable "static_service_log_host" {
+  type = "string"
+}
+
+variable "static_service_log_port" {
+  type = "string"
+}
+
+variable "stateless_dns_primary_key" {
+  type = "string"
+}
+
+variable "stateless_dns_secondary_key" {
+  type = "string"
+}
