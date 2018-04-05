@@ -9,6 +9,8 @@ To run this do:
 Any secrets added should be documented as variables in `secrets.tf` and added
 to the `terraform/secrets.sh` script in password-store.
 
+Kubernetes is managed with [kops](https://github.com/kubernetes/kops).
+
 Locked State
 ------------
 
