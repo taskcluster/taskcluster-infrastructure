@@ -32,3 +32,9 @@ provider "aws" {
   version = "~> 1.6"
   alias   = "eu-central-1"
 }
+
+provider "aws" {
+  region  = "eu-west-1"
+  version = "~> 1.6"
+  alias   = "eu-west-1"
+}
