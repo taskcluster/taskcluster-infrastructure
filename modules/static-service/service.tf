@@ -138,3 +138,14 @@ resource "aws_instance" "service_instance" {
 
   user_data = "${data.ignition_config.static_service.rendered}"
 }
+
+resource "aws_eip" "static_ip" {
+  instance = "${aws_instance.service_instance.id}"
+  vpc      = true
+
+  tags {
+    Name = "${var.nametag}"
+    taskcluster_service = "${var.servicetag}"
+    managed_by = "terraform"
+  }
+}

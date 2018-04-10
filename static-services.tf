@@ -87,10 +87,10 @@ SECONDARY_SECRET=${var.stateless_dns_secondary_key}
 EOF
 }
 
-output stateless_dns_us_west_2_hostname {
-  value = "${module.stateless_dns_us_west_2.instance_hostname}"
+output stateless_dns_us_west_2_ip {
+  value = "${module.stateless_dns_us_west_2.static_ip}"
 }
 
-output stateless_dns_eu_west_1_hostname {
-  value = "${module.stateless_dns_eu_west_1.instance_hostname}"
+output stateless_dns_eu_west_1_ip {
+  value = "${module.stateless_dns_eu_west_1.static_ip}"
 }

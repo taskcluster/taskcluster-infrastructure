@@ -1,3 +1,3 @@
-output instance_hostname {
-  value = "${aws_instance.service_instance.public_dns}"
+output static_ip {
+  value = "${aws_eip.static_ip.public_ip}"
 }
