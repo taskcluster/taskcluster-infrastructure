@@ -1,3 +1,5 @@
+# Please feel free to DRY this up a bit if you have the time
+
 resource "aws_security_group" "stateless_dns_us_west_2" {
   name        = "allow_dns"
   description = "Allow dns inbound traffic"
@@ -50,6 +52,20 @@ resource "aws_security_group" "basic_https" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+resource "aws_security_group" "deny_all" {
+  name        = "deny_all"
+  description = "Deny all inbound traffic"
+  vpc_id      = "vpc-24233046" # default vpc in us-west-2
+  provider    = "aws.us-west-2"
+
   egress {
     from_port   = 0
     to_port     = 0
@@ -152,23 +168,49 @@ ENV='production'
 HOSTNAME=${var.webhooktunnel_hostname}
 TASKCLUSTER_PROXY_SECRET_A=${var.webhooktunnel_secret_a}
 TASKCLUSTER_PROXY_SECRET_B=${var.webhooktunnel_secret_b}
-TLS_KEY='HELP WHAT IS THE PLAN HERE'
-TLS_CERTIFICATE='HELP WHAT IS THE PLAN HERE'
 EOF
 }
 
-output stateless_dns_us_west_2_ip {
-  value = "${module.stateless_dns_us_west_2.static_ip}"
+module "cloud-mirror-copiers" {
+  source                      = "modules/static-service"
+  log_host                    = "${var.static_service_log_host}"
+  log_port                    = "${var.static_service_log_port}"
+  security_groups             = ["${aws_security_group.deny_all.id}"]
+  instances                   = 1 # TODO Bump both of these
+  service_copies_per_instance = 1 # TODO Bump both of these
+  nametag                     = "Cloud-Mirror Copiers"
+  servicetag                  = "cloud-mirror-copiers"
+  instance_type               = "c4.8xlarge"
+  runtime_name                = "cloudmirrorcopiers"
+  runtime_description         = "cloud-mirror processes to copy data from region to region"
+  image_tag                   = "taskcluster/cloud-mirror"
+  image_hash                  = "f9aa7c009de17504da08e4725a3c6cfb1a3785bdd2cfdb5f05dc53ac8fa54182"
+  providers = {
+    aws = "aws.us-west-2"
+  }
+  env_vars = <<EOF
+DEBUG='* -aws -babel -base:validator -eslint* -express:* -sqs-consumer -superagent -base:stats -cloud-mirror:aws-* -taskcluster-lib-monitor'
+NODE_ENV='production'
+AWS_ACCESS_KEY_ID='${var.cloudmirror_aws_access_key_id}'
+AWS_SECRET_ACCESS_KEY='${var.cloudmirror_aws_secret_access_key}'
+PULSE_USERNAME='${var.cloudmirror_pulse_username}'
+PULSE_PASSWORD='${var.cloudmirror_pulse_password}'
+REDIS_HOST='${var.cloudmirror_redis_host}'
+REDIS_PASS='${var.cloudmirror_redis_pass}'
+REDIS_PORT='${var.cloudmirror_redis_port}'
+TASKCLUSTER_CLIENT_ID='${var.cloudmirror_tc_client_id}'
+TASKCLUSTER_ACCESS_TOKEN='${var.cloudmirror_tc_access_token}'
+EOF
 }
 
-output stateless_dns_eu_west_1_ip {
-  value = "${module.stateless_dns_eu_west_1.static_ip}"
+output stateless_dns_ips {
+  value = "${concat(module.stateless_dns_us_west_2.static_ips, module.stateless_dns_eu_west_1.static_ips)}"
 }
 
-output statsum_ip {
-  value = "${module.statsum.static_ip}"
+output statsum_ips {
+  value = "${module.statsum.static_ips}"
 }
 
-output webhooktunnel_ip {
-  value = "${module.webhooktunnel.static_ip}"
+output webhooktunnel_ips {
+  value = "${module.webhooktunnel.static_ips}"
 }

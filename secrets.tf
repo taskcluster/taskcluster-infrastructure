@@ -59,3 +59,39 @@ variable "webhooktunnel_secret_a" {
 variable "webhooktunnel_secret_b" {
   type = "string"
 }
+
+variable "cloudmirror_aws_access_key_id" {
+  type = "string"
+}
+
+variable "cloudmirror_aws_secret_access_key" {
+  type = "string"
+}
+
+variable "cloudmirror_pulse_username" {
+  type = "string"
+}
+
+variable "cloudmirror_pulse_password" {
+  type = "string"
+}
+
+variable "cloudmirror_redis_host" {
+  type = "string"
+}
+
+variable "cloudmirror_redis_pass" {
+  type = "string"
+}
+
+variable "cloudmirror_redis_port" {
+  type = "string"
+}
+
+variable "cloudmirror_tc_client_id" {
+  type = "string"
+}
+
+variable "cloudmirror_tc_access_token" {
+  type = "string"
+}

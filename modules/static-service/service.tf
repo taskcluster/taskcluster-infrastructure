@@ -32,6 +32,12 @@ data "ignition_systemd_unit" "locksmithd_off" {
   enabled = false
 }
 
+data "ignition_systemd_unit" "update_engine_off" {
+  name = "update-engine.service"
+  mask = true
+  enabled = false
+}
+
 data "ignition_systemd_unit" "fleet_off" {
   name = "fleet.socket"
   mask = true
@@ -78,7 +84,8 @@ EOF
 }
 
 data "ignition_systemd_unit" "service_runtime" {
-  name = "${var.runtime_name}.service"
+  count = "${var.service_copies_per_instance}"
+  name = "${var.runtime_name}-${count.index}.service"
   enabled = true
   content = <<EOF
 [Unit]
@@ -87,7 +94,7 @@ Requires=papertrail.service docker.service
 [Service]
 Restart=always
 ExecStart=/usr/bin/docker \
-  run -p ${var.runtime_port_map} --rm \
+  run ${var.runtime_port_map != "" ? "-p" : ""} ${var.runtime_port_map} --rm \
   --env-file /etc/static-service-env.list \
   --name ${var.runtime_name} \
   ${var.image_tag}@sha256:${var.image_hash}
@@ -111,12 +118,13 @@ data "ignition_config" "static_service" {
     "${data.ignition_systemd_unit.ssh_socket_off.id}",
     "${data.ignition_systemd_unit.ssh_service_off.id}",
     "${data.ignition_systemd_unit.locksmithd_off.id}",
+    "${data.ignition_systemd_unit.update_engine_off.id}",
     "${data.ignition_systemd_unit.fleet_off.id}",
     "${data.ignition_systemd_unit.etcd2_off.id}",
     "${data.ignition_systemd_unit.metadata_ssh_off.id}",
     "${data.ignition_systemd_unit.debug_logging.id}",
     "${data.ignition_systemd_unit.papertrail_logging.id}",
-    "${data.ignition_systemd_unit.service_runtime.id}",
+    "${data.ignition_systemd_unit.service_runtime.*.id}",
   ]
   files = [
     "${data.ignition_file.env.id}",
@@ -124,14 +132,15 @@ data "ignition_config" "static_service" {
 }
 
 resource "aws_instance" "service_instance" {
+  count         = "${var.instances}"
   ami           = "${data.aws_ami.coreos.id}"
   instance_type = "${var.instance_type}"
-  associate_public_ip_address = true
+  associate_public_ip_address = "${var.runtime_port_map != ""}"
 
   vpc_security_group_ids = ["${var.security_groups}"]
 
   tags {
-    Name = "${var.nametag}"
+    Name = "${var.nametag} ${count.index}"
     taskcluster_service = "${var.servicetag}"
     managed_by = "terraform"
   }
@@ -140,7 +149,8 @@ resource "aws_instance" "service_instance" {
 }
 
 resource "aws_eip" "static_ip" {
-  instance = "${aws_instance.service_instance.id}"
+  count    = "${(var.runtime_port_map != "" ? 1 : 0) * var.instances}"
+  instance = "${element(aws_instance.service_instance.*.id, count.index)}"
   vpc      = true
 
   tags {

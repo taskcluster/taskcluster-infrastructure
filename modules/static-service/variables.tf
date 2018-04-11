@@ -28,6 +28,7 @@ variable "runtime_description" {
 
 variable "runtime_port_map" {
   type = "string"
+  default = ""
 }
 
 variable "image_tag" {
@@ -44,4 +45,12 @@ variable "env_vars" {
 
 variable "security_groups" {
   type = "list"
+}
+
+variable "instances" {
+  default = 1
+}
+
+variable "service_copies_per_instance" {
+  default = 1
 }
