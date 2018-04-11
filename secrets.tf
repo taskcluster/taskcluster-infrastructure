@@ -35,3 +35,15 @@ variable "stateless_dns_primary_key" {
 variable "stateless_dns_secondary_key" {
   type = "string"
 }
+
+variable "statsum_jwt_secret_key" {
+  type = "string"
+}
+
+variable "statsum_sentry_dsn" {
+  type = "string"
+}
+
+variable "statsum_signalfx_token" {
+  type = "string"
+}

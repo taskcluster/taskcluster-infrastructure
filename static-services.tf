@@ -38,6 +38,25 @@ resource "aws_security_group" "stateless_dns_eu_west_1" {
   }
 }
 
+resource "aws_security_group" "basic_https" {
+  name        = "allow_https"
+  description = "Allow https inbound traffic"
+  vpc_id      = "vpc-24233046" # default vpc in us-west-2
+  provider    = "aws.us-west-2"
+
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
 
 module "stateless_dns_us_west_2" {
   source                   = "modules/static-service"
@@ -87,10 +106,38 @@ SECONDARY_SECRET=${var.stateless_dns_secondary_key}
 EOF
 }
 
+module "statsum" {
+  source                   = "modules/static-service"
+  log_host                 = "${var.static_service_log_host}"
+  log_port                 = "${var.static_service_log_port}"
+  security_groups          = ["${aws_security_group.basic_https.id}"]
+  nametag                  = "Statsum"
+  servicetag               = "statsum"
+  instance_type            = "c4.2xlarge"
+  runtime_name             = "statsum"
+  runtime_description      = "statsum metrics aggregator"
+  runtime_port_map         = "443:12345"
+  image_tag                = "jonasfj/statsum"
+  image_hash               = "b8e12b57ef3fa430a5f7b0281098d5c488afae136012be7f8551ada9053065b6"
+  providers = {
+    aws = "aws.us-west-2"
+  }
+  env_vars = <<EOF
+PORT=12345
+JWT_SECRET_KEY=${var.statsum_jwt_secret_key}
+SENTRY_DSN=${var.statsum_sentry_dsn}
+SIGNALFX_TOKEN=${var.statsum_signalfx_token}
+EOF
+}
+
 output stateless_dns_us_west_2_ip {
   value = "${module.stateless_dns_us_west_2.static_ip}"
 }
 
 output stateless_dns_eu_west_1_ip {
   value = "${module.stateless_dns_eu_west_1.static_ip}"
+}
+
+output statsum_ip {
+  value = "${module.statsum.static_ip}"
 }
