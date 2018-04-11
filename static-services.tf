@@ -130,6 +130,33 @@ SIGNALFX_TOKEN=${var.statsum_signalfx_token}
 EOF
 }
 
+module "webhooktunnel" {
+  source                   = "modules/static-service"
+  log_host                 = "${var.static_service_log_host}"
+  log_port                 = "${var.static_service_log_port}"
+  security_groups          = ["${aws_security_group.basic_https.id}"]
+  nametag                  = "Webhook Tunnel"
+  servicetag               = "webhooktunnel"
+  instance_type            = "t2.medium"
+  runtime_name             = "webhooktunnel"
+  runtime_description      = "tunnel for webhooks"
+  runtime_port_map         = "443:12345"
+  image_tag                = "taskcluster/webhooktunnel"
+  image_hash               = "ed9a8c9f3949f3c8251d1d9a1ae3cfb0aaa99d584b707d12acfdf60f356cc3d5"
+  providers = {
+    aws = "aws.us-west-2"
+  }
+  env_vars = <<EOF
+PORT=12345
+ENV='production'
+HOSTNAME=${var.webhooktunnel_hostname}
+TASKCLUSTER_PROXY_SECRET_A=${var.webhooktunnel_secret_a}
+TASKCLUSTER_PROXY_SECRET_B=${var.webhooktunnel_secret_b}
+TLS_KEY='HELP WHAT IS THE PLAN HERE'
+TLS_CERTIFICATE='HELP WHAT IS THE PLAN HERE'
+EOF
+}
+
 output stateless_dns_us_west_2_ip {
   value = "${module.stateless_dns_us_west_2.static_ip}"
 }
@@ -140,4 +167,8 @@ output stateless_dns_eu_west_1_ip {
 
 output statsum_ip {
   value = "${module.statsum.static_ip}"
+}
+
+output webhooktunnel_ip {
+  value = "${module.webhooktunnel.static_ip}"
 }
