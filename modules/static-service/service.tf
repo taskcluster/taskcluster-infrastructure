@@ -97,7 +97,7 @@ ExecStart=/usr/bin/docker \
   run ${var.runtime_port_map != "" ? "-p" : ""} ${var.runtime_port_map} --rm \
   --env-file /etc/static-service-env.list \
   --name ${var.runtime_name} \
-  ${var.image_tag}@sha256:${var.image_hash}
+  ${var.image_tag}@sha256:${var.image_hash} ${var.runtime_command}
 ExecStop=/usr/bin/docker kill ${var.runtime_name}
 [Install]
 WantedBy=multi-user.target
@@ -110,6 +110,15 @@ data "ignition_file" "env" {
     mode = "0400"
     content {
         content = "${var.env_vars}"
+    }
+}
+
+data "ignition_file" "hostname" {
+    filesystem = "root"
+    path = "/etc/hostname"
+    mode = "0420"
+    content {
+        content = "${var.runtime_name}"
     }
 }
 
