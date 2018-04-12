@@ -144,7 +144,6 @@ resource "aws_instance" "service_instance" {
   count         = "${var.instances}"
   ami           = "${data.aws_ami.coreos.id}"
   instance_type = "${var.instance_type}"
-  associate_public_ip_address = "${var.runtime_port_map != ""}"
 
   vpc_security_group_ids = ["${var.security_groups}"]
 
