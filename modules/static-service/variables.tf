@@ -31,6 +31,11 @@ variable "runtime_port_map" {
   default = ""
 }
 
+variable "runtime_command" {
+  type = "string"
+  default = ""
+}
+
 variable "image_tag" {
   type = "string"
 }

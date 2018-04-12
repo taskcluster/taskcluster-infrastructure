@@ -137,6 +137,7 @@ module "statsum" {
   runtime_name             = "statsum"
   runtime_description      = "statsum metrics aggregator"
   runtime_port_map         = "443:12345"
+  runtime_command          = "go-wrapper run server"
   image_tag                = "jonasfj/statsum"
   image_hash               = "b8e12b57ef3fa430a5f7b0281098d5c488afae136012be7f8551ada9053065b6"
   providers = {
