@@ -1,5 +1,9 @@
 # Please feel free to DRY this up a bit if you have the time
 
+# These are all services that used to run in docker-cloud
+# for one reason or another. Services run on static instances
+# that we must treat as pets rather than cattle :(
+
 resource "aws_security_group" "stateless_dns_us_west_2" {
   name        = "allow_dns"
   description = "Allow dns inbound traffic"
@@ -192,8 +196,7 @@ module "cloud-mirror-copiers" {
 DEBUG='* -aws -babel -base:validator -eslint* -express:* -sqs-consumer -superagent -base:stats -cloud-mirror:aws-* -taskcluster-lib-monitor'
 NODE_ENV='production'
 AWS_ACCESS_KEY_ID='${var.cloudmirror_aws_access_key_id}'
-AWS_SECRET_ACCESS_KEY='${var.cloudmirror_aws_secret_access_key}'
-PULSE_USERNAME='${var.cloudmirror_pulse_username}'
+AWS_SECRET_ACCESS_KEY='${var.cloudmirror_aws_secret_access_key}' PULSE_USERNAME='${var.cloudmirror_pulse_username}'
 PULSE_PASSWORD='${var.cloudmirror_pulse_password}'
 REDIS_HOST='${var.cloudmirror_redis_host}'
 REDIS_PASS='${var.cloudmirror_redis_pass}'
@@ -202,6 +205,9 @@ TASKCLUSTER_CLIENT_ID='${var.cloudmirror_tc_client_id}'
 TASKCLUSTER_ACCESS_TOKEN='${var.cloudmirror_tc_access_token}'
 EOF
 }
+
+# The following outputs are all static ip addresses that we can point
+# dns at even when the underlying instance changes
 
 output stateless_dns_ips {
   value = "${concat(module.stateless_dns_us_west_2.static_ips, module.stateless_dns_eu_west_1.static_ips)}"
