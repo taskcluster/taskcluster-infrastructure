@@ -137,6 +137,7 @@ data "ignition_config" "static_service" {
   ]
   files = [
     "${data.ignition_file.env.id}",
+    "${data.ignition_file.hostname.id}",
   ]
 }
 
