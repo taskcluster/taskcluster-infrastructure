@@ -1,3 +1,3 @@
-output static_ip {
-  value = "${aws_eip.static_ip.public_ip}"
+output static_ips {
+  value = "${aws_eip.static_ip.*.public_ip}"
 }
