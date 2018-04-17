@@ -153,6 +153,8 @@ PORT=12345
 JWT_SECRET_KEY=${var.statsum_jwt_secret_key}
 SENTRY_DSN=${var.statsum_sentry_dsn}
 SIGNALFX_TOKEN=${var.statsum_signalfx_token}
+TLS_CERTIFICATE=${base64encode(var.taskcluster_net_san_tls_certs)}
+TLS_KEY=${base64encode(var.taskcluster_net_san_tls_key)}
 EOF
 }
 
@@ -178,6 +180,8 @@ ENV=production
 HOSTNAME=${var.webhooktunnel_hostname}
 TASKCLUSTER_PROXY_SECRET_A=${var.webhooktunnel_secret_a}
 TASKCLUSTER_PROXY_SECRET_B=${var.webhooktunnel_secret_b}
+TLS_CERTIFICATE=${base64encode(var.star_tasks_build_tls_certs)}
+TLS_KEY=${base64encode(var.star_tasks_build_tls_key)}
 EOF
 }
 
