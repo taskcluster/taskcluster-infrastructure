@@ -21,3 +21,12 @@ If the state becomes locked because a process fails:
  * Navigate to the tfstate container
  * Find the blob in the "Leased" state
  * Click the "..." menu and select "Break Lease".
+
+Deploying a new version of a static service
+-------------------------------------------
+
+In `static-services.tf` each service has both a `image_tag` and `image_hash`
+field that can be updated to deploy a new version of the service. The
+`image_hash` is the `sha256 Digest` of an image. Once you update this field and
+`terraform apply`, the ec2 instance will be replaced by a new one (this does
+involve downtime!) and the eip will be hooked into the new instance.

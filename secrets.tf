@@ -95,3 +95,11 @@ variable "cloudmirror_tc_client_id" {
 variable "cloudmirror_tc_access_token" {
   type = "string"
 }
+
+variable "star_tasks_build_tls_key" {
+  type = "string"
+}
+
+variable "taskcluster_net_san_tls_key" {
+  type = "string"
+}

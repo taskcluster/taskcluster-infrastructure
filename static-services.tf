@@ -153,6 +153,8 @@ PORT=12345
 JWT_SECRET_KEY=${var.statsum_jwt_secret_key}
 SENTRY_DSN=${var.statsum_sentry_dsn}
 SIGNALFX_TOKEN=${var.statsum_signalfx_token}
+TLS_CERTIFICATE=${base64encode(var.taskcluster_net_san_tls_certs)}
+TLS_KEY=${base64encode(var.taskcluster_net_san_tls_key)}
 EOF
 }
 
@@ -178,6 +180,8 @@ ENV=production
 HOSTNAME=${var.webhooktunnel_hostname}
 TASKCLUSTER_PROXY_SECRET_A=${var.webhooktunnel_secret_a}
 TASKCLUSTER_PROXY_SECRET_B=${var.webhooktunnel_secret_b}
+TLS_CERTIFICATE=${base64encode(var.star_tasks_build_tls_certs)}
+TLS_KEY=${base64encode(var.star_tasks_build_tls_key)}
 EOF
 }
 
@@ -186,8 +190,8 @@ module "cloud-mirror-copiers" {
   log_host                    = "${var.static_service_log_host}"
   log_port                    = "${var.static_service_log_port}"
   security_groups             = ["${aws_security_group.deny_all.id}"]
-  instances                   = 1 # TODO Bump both of these
-  service_copies_per_instance = 1 # TODO Bump both of these
+  instances                   = 2
+  service_copies_per_instance = 3
   nametag                     = "Cloud-Mirror Copiers"
   servicetag                  = "cloud-mirror-copiers"
   instance_type               = "c4.8xlarge"
