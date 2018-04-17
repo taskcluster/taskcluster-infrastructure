@@ -190,8 +190,8 @@ module "cloud-mirror-copiers" {
   log_host                    = "${var.static_service_log_host}"
   log_port                    = "${var.static_service_log_port}"
   security_groups             = ["${aws_security_group.deny_all.id}"]
-  instances                   = 1 # TODO Bump both of these
-  service_copies_per_instance = 1 # TODO Bump both of these
+  instances                   = 2
+  service_copies_per_instance = 3
   nametag                     = "Cloud-Mirror Copiers"
   servicetag                  = "cloud-mirror-copiers"
   instance_type               = "c4.8xlarge"
