@@ -15,60 +15,62 @@ data "aws_ami" "coreos" {
 }
 
 data "ignition_systemd_unit" "ssh_socket_off" {
-  name = "sshd.socket"
-  mask = true
+  name    = "sshd.socket"
+  mask    = true
   enabled = false
 }
 
 data "ignition_systemd_unit" "ssh_service_off" {
-  name = "sshd.service"
-  mask = true
+  name    = "sshd.service"
+  mask    = true
   enabled = false
 }
 
 data "ignition_systemd_unit" "locksmithd_off" {
-  name = "locksmithd.service"
-  mask = true
+  name    = "locksmithd.service"
+  mask    = true
   enabled = false
 }
 
 data "ignition_systemd_unit" "update_engine_off" {
-  name = "update-engine.service"
-  mask = true
+  name    = "update-engine.service"
+  mask    = true
   enabled = false
 }
 
 data "ignition_systemd_unit" "fleet_off" {
-  name = "fleet.socket"
-  mask = true
+  name    = "fleet.socket"
+  mask    = true
   enabled = false
 }
 
 data "ignition_systemd_unit" "etcd2_off" {
-  name = "etcd2.service"
-  mask = true
+  name    = "etcd2.service"
+  mask    = true
   enabled = false
 }
 
 data "ignition_systemd_unit" "metadata_ssh_off" {
-  name = "coreos-metadata-sshkeys@core.service"
-  mask = true
+  name    = "coreos-metadata-sshkeys@core.service"
+  mask    = true
   enabled = false
 }
 
 data "ignition_systemd_unit" "debug_logging" {
   name = "systemd-journald.service"
+
   dropin = [
     {
-      name = "10-debug.conf"
+      name    = "10-debug.conf"
       content = "[Service]\nEnvironment=SYSTEMD_LOG_LEVEL=debug"
-    }
+    },
   ]
 }
 
 data "ignition_systemd_unit" "papertrail_logging" {
-  name = "papertrail.service"
+  name    = "papertrail.service"
   enabled = true
+
   content = <<EOF
 [Unit]
 Description=forward syslog to papertrail
@@ -84,9 +86,10 @@ EOF
 }
 
 data "ignition_systemd_unit" "service_runtime" {
-  count = "${var.service_copies_per_instance}"
-  name = "${var.runtime_name}-${count.index}.service"
+  count   = "${var.service_copies_per_instance}"
+  name    = "${var.runtime_name}-${count.index}.service"
   enabled = true
+
   content = <<EOF
 [Unit]
 Description=${var.runtime_description}
@@ -105,21 +108,23 @@ EOF
 }
 
 data "ignition_file" "env" {
-    filesystem = "root"
-    path = "/etc/static-service-env.list"
-    mode = "0400"
-    content {
-        content = "${var.env_vars}"
-    }
+  filesystem = "root"
+  path       = "/etc/static-service-env.list"
+  mode       = "0400"
+
+  content {
+    content = "${var.env_vars}"
+  }
 }
 
 data "ignition_file" "hostname" {
-    filesystem = "root"
-    path = "/etc/hostname"
-    mode = "0420"
-    content {
-        content = "${var.runtime_name}"
-    }
+  filesystem = "root"
+  path       = "/etc/hostname"
+  mode       = "0420"
+
+  content {
+    content = "${var.runtime_name}"
+  }
 }
 
 data "ignition_config" "static_service" {
@@ -135,6 +140,7 @@ data "ignition_config" "static_service" {
     "${data.ignition_systemd_unit.papertrail_logging.id}",
     "${data.ignition_systemd_unit.service_runtime.*.id}",
   ]
+
   files = [
     "${data.ignition_file.env.id}",
     "${data.ignition_file.hostname.id}",
@@ -149,9 +155,13 @@ resource "aws_instance" "service_instance" {
   vpc_security_group_ids = ["${var.security_groups}"]
 
   tags {
-    Name = "${var.nametag} ${count.index}"
+    Name                = "${var.nametag} ${count.index}"
     taskcluster_service = "${var.servicetag}"
-    managed_by = "terraform"
+    managed_by          = "terraform"
+  }
+
+  lifecycle {
+    create_before_destroy = true
   }
 
   user_data = "${data.ignition_config.static_service.rendered}"
@@ -163,8 +173,12 @@ resource "aws_eip" "static_ip" {
   vpc      = true
 
   tags {
-    Name = "${var.nametag}"
+    Name                = "${var.nametag}"
     taskcluster_service = "${var.servicetag}"
-    managed_by = "terraform"
+    managed_by          = "terraform"
+  }
+
+  lifecycle {
+    prevent_destroy = true
   }
 }
