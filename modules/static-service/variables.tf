@@ -27,12 +27,12 @@ variable "runtime_description" {
 }
 
 variable "runtime_port_map" {
-  type = "string"
+  type    = "string"
   default = ""
 }
 
 variable "runtime_command" {
-  type = "string"
+  type    = "string"
   default = ""
 }
 
