@@ -12,7 +12,7 @@
 resource "aws_security_group" "stateless_dns_us_west_2" {
   name        = "allow_dns"
   description = "Allow dns inbound traffic"
-  vpc_id      = "vpc-24233046" # default vpc in us-west-2
+  vpc_id      = "vpc-24233046"              # default vpc in us-west-2
   provider    = "aws.us-west-2"
 
   ingress {
@@ -21,6 +21,7 @@ resource "aws_security_group" "stateless_dns_us_west_2" {
     protocol    = "udp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
   egress {
     from_port   = 0
     to_port     = 0
@@ -32,7 +33,7 @@ resource "aws_security_group" "stateless_dns_us_west_2" {
 resource "aws_security_group" "stateless_dns_eu_west_1" {
   name        = "allow_dns"
   description = "Allow dns inbound traffic"
-  vpc_id      = "vpc-fd19fa98" # default vpc in eu-west-1
+  vpc_id      = "vpc-fd19fa98"              # default vpc in eu-west-1
   provider    = "aws.eu-west-1"
 
   ingress {
@@ -41,6 +42,7 @@ resource "aws_security_group" "stateless_dns_eu_west_1" {
     protocol    = "udp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
   egress {
     from_port   = 0
     to_port     = 0
@@ -52,7 +54,7 @@ resource "aws_security_group" "stateless_dns_eu_west_1" {
 resource "aws_security_group" "basic_https" {
   name        = "allow_https"
   description = "Allow https inbound traffic"
-  vpc_id      = "vpc-24233046" # default vpc in us-west-2
+  vpc_id      = "vpc-24233046"                # default vpc in us-west-2
   provider    = "aws.us-west-2"
 
   ingress {
@@ -61,6 +63,7 @@ resource "aws_security_group" "basic_https" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
   egress {
     from_port   = 0
     to_port     = 0
@@ -72,7 +75,7 @@ resource "aws_security_group" "basic_https" {
 resource "aws_security_group" "deny_all" {
   name        = "deny_all"
   description = "Deny all inbound traffic"
-  vpc_id      = "vpc-24233046" # default vpc in us-west-2
+  vpc_id      = "vpc-24233046"             # default vpc in us-west-2
   provider    = "aws.us-west-2"
 
   egress {
@@ -84,21 +87,23 @@ resource "aws_security_group" "deny_all" {
 }
 
 module "stateless_dns_us_west_2" {
-  source                   = "modules/static-service"
-  log_host                 = "${var.static_service_log_host}"
-  log_port                 = "${var.static_service_log_port}"
-  security_groups          = ["${aws_security_group.stateless_dns_us_west_2.id}"]
-  nametag                  = "Stateless DNS"
-  servicetag               = "stateless-dns"
-  instance_type            = "t2.nano"
-  runtime_name             = "stateless_dns"
-  runtime_description      = "stateless dns server implementation"
-  runtime_port_map         = "53:55553/udp"
-  image_tag                = "taskcluster/stateless-dns-server"
-  image_hash               = "764e325a266d429f8cd4d6693f6f0fed941f726cee5e38eb3a84f210731aae4c"
+  source              = "modules/static-service"
+  log_host            = "${var.static_service_log_host}"
+  log_port            = "${var.static_service_log_port}"
+  security_groups     = ["${aws_security_group.stateless_dns_us_west_2.id}"]
+  nametag             = "Stateless DNS"
+  servicetag          = "stateless-dns"
+  instance_type       = "t2.nano"
+  runtime_name        = "stateless_dns"
+  runtime_description = "stateless dns server implementation"
+  runtime_port_map    = "53:55553/udp"
+  image_tag           = "taskcluster/stateless-dns-server"
+  image_hash          = "764e325a266d429f8cd4d6693f6f0fed941f726cee5e38eb3a84f210731aae4c"
+
   providers = {
     aws = "aws.us-west-2"
   }
+
   env_vars = <<EOF
 PORT=55553
 DOMAIN=taskcluster-worker.net
@@ -108,21 +113,23 @@ EOF
 }
 
 module "stateless_dns_eu_west_1" {
-  source                   = "modules/static-service"
-  log_host                 = "${var.static_service_log_host}"
-  log_port                 = "${var.static_service_log_port}"
-  security_groups          = ["${aws_security_group.stateless_dns_eu_west_1.id}"]
-  nametag                  = "Stateless DNS"
-  servicetag               = "stateless-dns"
-  instance_type            = "t2.nano"
-  runtime_name             = "stateless_dns"
-  runtime_description      = "stateless dns server implementation"
-  runtime_port_map         = "53:55553/udp"
-  image_tag                = "taskcluster/stateless-dns-server"
-  image_hash               = "764e325a266d429f8cd4d6693f6f0fed941f726cee5e38eb3a84f210731aae4c"
+  source              = "modules/static-service"
+  log_host            = "${var.static_service_log_host}"
+  log_port            = "${var.static_service_log_port}"
+  security_groups     = ["${aws_security_group.stateless_dns_eu_west_1.id}"]
+  nametag             = "Stateless DNS"
+  servicetag          = "stateless-dns"
+  instance_type       = "t2.nano"
+  runtime_name        = "stateless_dns"
+  runtime_description = "stateless dns server implementation"
+  runtime_port_map    = "53:55553/udp"
+  image_tag           = "taskcluster/stateless-dns-server"
+  image_hash          = "764e325a266d429f8cd4d6693f6f0fed941f726cee5e38eb3a84f210731aae4c"
+
   providers = {
     aws = "aws.eu-west-1"
   }
+
   env_vars = <<EOF
 PORT=55553
 DOMAIN=taskcluster-worker.net
@@ -132,22 +139,24 @@ EOF
 }
 
 module "statsum" {
-  source                   = "modules/static-service"
-  log_host                 = "${var.static_service_log_host}"
-  log_port                 = "${var.static_service_log_port}"
-  security_groups          = ["${aws_security_group.basic_https.id}"]
-  nametag                  = "Statsum"
-  servicetag               = "statsum"
-  instance_type            = "c4.2xlarge"
-  runtime_name             = "statsum"
-  runtime_description      = "statsum metrics aggregator"
-  runtime_port_map         = "443:12345"
-  runtime_command          = "go-wrapper run server"
-  image_tag                = "jonasfj/statsum"
-  image_hash               = "b8e12b57ef3fa430a5f7b0281098d5c488afae136012be7f8551ada9053065b6"
+  source              = "modules/static-service"
+  log_host            = "${var.static_service_log_host}"
+  log_port            = "${var.static_service_log_port}"
+  security_groups     = ["${aws_security_group.basic_https.id}"]
+  nametag             = "Statsum"
+  servicetag          = "statsum"
+  instance_type       = "c4.2xlarge"
+  runtime_name        = "statsum"
+  runtime_description = "statsum metrics aggregator"
+  runtime_port_map    = "443:12345"
+  runtime_command     = "go-wrapper run server"
+  image_tag           = "jonasfj/statsum"
+  image_hash          = "b8e12b57ef3fa430a5f7b0281098d5c488afae136012be7f8551ada9053065b6"
+
   providers = {
     aws = "aws.us-west-2"
   }
+
   env_vars = <<EOF
 PORT=12345
 JWT_SECRET_KEY=${var.statsum_jwt_secret_key}
@@ -159,21 +168,23 @@ EOF
 }
 
 module "webhooktunnel" {
-  source                   = "modules/static-service"
-  log_host                 = "${var.static_service_log_host}"
-  log_port                 = "${var.static_service_log_port}"
-  security_groups          = ["${aws_security_group.basic_https.id}"]
-  nametag                  = "Webhook Tunnel"
-  servicetag               = "webhooktunnel"
-  instance_type            = "t2.medium"
-  runtime_name             = "webhooktunnel"
-  runtime_description      = "tunnel for webhooks"
-  runtime_port_map         = "443:12345"
-  image_tag                = "taskcluster/webhooktunnel"
-  image_hash               = "ed9a8c9f3949f3c8251d1d9a1ae3cfb0aaa99d584b707d12acfdf60f356cc3d5"
+  source              = "modules/static-service"
+  log_host            = "${var.static_service_log_host}"
+  log_port            = "${var.static_service_log_port}"
+  security_groups     = ["${aws_security_group.basic_https.id}"]
+  nametag             = "Webhook Tunnel"
+  servicetag          = "webhooktunnel"
+  instance_type       = "t2.medium"
+  runtime_name        = "webhooktunnel"
+  runtime_description = "tunnel for webhooks"
+  runtime_port_map    = "443:12345"
+  image_tag           = "taskcluster/webhooktunnel"
+  image_hash          = "ed9a8c9f3949f3c8251d1d9a1ae3cfb0aaa99d584b707d12acfdf60f356cc3d5"
+
   providers = {
     aws = "aws.us-west-2"
   }
+
   env_vars = <<EOF
 PORT=12345
 ENV=production
@@ -199,9 +210,11 @@ module "cloud-mirror-copiers" {
   runtime_description         = "cloud-mirror processes to copy data from region to region"
   image_tag                   = "taskcluster/cloud-mirror"
   image_hash                  = "f9aa7c009de17504da08e4725a3c6cfb1a3785bdd2cfdb5f05dc53ac8fa54182"
+
   providers = {
     aws = "aws.us-west-2"
   }
+
   env_vars = <<EOF
 DEBUG=* -aws -babel -base:validator -eslint* -express:* -sqs-consumer -superagent -base:stats -cloud-mirror:aws-* -taskcluster-lib-monitor
 NODE_ENV=production
