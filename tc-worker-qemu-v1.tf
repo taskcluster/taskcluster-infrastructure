@@ -10,4 +10,5 @@ module "tc-worker-qemu-v1" {
   worker_type              = "tc-worker-qemu-v1"
   facility                 = "ams1"
   project                  = "tc-worker-qemu-v1"
+  packet_project_id        = "d701a359-ae99-43ec-868b-6dd551336b1e"
 }
