@@ -62,8 +62,7 @@ variable "project" {
   default     = "tc-worker-qemu-v1"
 }
 
-variable "packet_project_name" {
+variable "packet_project_id" {
   type        = "string"
-  description = "packet project name"
-  default     = "taskcluster"
+  description = "packet project id"
 }
