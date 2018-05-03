@@ -35,7 +35,7 @@ data "ignition_config" "worker_config" {
 
 data "ignition_file" "taskcluster_worker" {
   filesystem = "root"
-  path       = "/usr/local/bin/taskcluster-worker"
+  path       = "/opt/taskcluster-worker"
   mode       = 0555
 
   source {
@@ -115,7 +115,8 @@ Requires=papertrail.service docker.service
 
 [Service]
 Restart=always
-ExecStart=/usr/local/bin/taskcluster-worker work /etc/taskcluster-worker.yml
+Environment=DEBUG=*
+ExecStart=/opt/taskcluster-worker work /etc/taskcluster-worker.yml
 
 [Install]
 WantedBy=multi-user.target
