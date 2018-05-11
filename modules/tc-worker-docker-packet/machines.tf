@@ -88,6 +88,7 @@ config:
       maxRunTime:   '4 hours'
       perTaskLimit: 'allow'
     success:        {}
+    watchdog:       {}
   temporaryFolder:  /mnt/tmp
   webHookServer:
     provider:       webhooktunnel
