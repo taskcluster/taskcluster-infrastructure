@@ -10,6 +10,12 @@ variable "packet_instance_type" {
   default     = "baremetal_0"
 }
 
+variable "concurrency" {
+  type        = "string"
+  description = "number of concurrent tasks to run on each worker machine"
+  default     = "1"
+}
+
 variable "log_host" {
   type        = "string"
   description = "hostname that log should be sent to, see also log_port"
