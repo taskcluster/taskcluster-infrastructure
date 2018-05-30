@@ -93,7 +93,7 @@ config:
   webHookServer:
     provider:       webhooktunnel
   worker:
-    concurrency:          1
+    concurrency:          ${var.concurrency}
     minimumReclaimDelay:  30
     pollingInterval:      5
     reclaimOffset:        300
