@@ -107,3 +107,7 @@ variable "star_tasks_build_tls_key" {
 variable "taskcluster_net_san_tls_key" {
   type = "string"
 }
+
+variable "tc_worker_docker_relengapi_token" {
+  type = "string"
+}

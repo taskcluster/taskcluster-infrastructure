@@ -11,6 +11,7 @@ module "tc-worker-docker-v1" {
   facility                 = "sjc1"
   project                  = "tc-worker-docker-v1"
   packet_project_id        = "d701a359-ae99-43ec-868b-6dd551336b1e"
+  relengapi_token          = "${var.tc_worker_docker_relengapi_token}"
 }
 
 module "tc-worker-docker-v1-A1" {
@@ -27,6 +28,7 @@ module "tc-worker-docker-v1-A1" {
   facility                 = "sjc1"
   project                  = "tc-worker-docker-v1"
   packet_project_id        = "d701a359-ae99-43ec-868b-6dd551336b1e"
+  relengapi_token          = "${var.tc_worker_docker_relengapi_token}"
 }
 
 module "tc-worker-docker-v1-A4" {
@@ -43,6 +45,7 @@ module "tc-worker-docker-v1-A4" {
   facility                 = "sjc1"
   project                  = "tc-worker-docker-v1"
   packet_project_id        = "d701a359-ae99-43ec-868b-6dd551336b1e"
+  relengapi_token          = "${var.tc_worker_docker_relengapi_token}"
 }
 
 module "tc-worker-docker-v1-B1" {
@@ -59,6 +62,7 @@ module "tc-worker-docker-v1-B1" {
   facility                 = "sjc1"
   project                  = "tc-worker-docker-v1"
   packet_project_id        = "d701a359-ae99-43ec-868b-6dd551336b1e"
+  relengapi_token          = "${var.tc_worker_docker_relengapi_token}"
 }
 
 module "tc-worker-docker-v1-B4" {
@@ -75,4 +79,5 @@ module "tc-worker-docker-v1-B4" {
   facility                 = "sjc1"
   project                  = "tc-worker-docker-v1"
   packet_project_id        = "d701a359-ae99-43ec-868b-6dd551336b1e"
+  relengapi_token          = "${var.tc_worker_docker_relengapi_token}"
 }
