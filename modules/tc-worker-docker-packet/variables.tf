@@ -84,3 +84,8 @@ variable "packet_project_id" {
   type        = "string"
   description = "packet project id"
 }
+
+variable "relengapi_token" {
+  type        = "string"
+  description = "Releng API token"
+}
