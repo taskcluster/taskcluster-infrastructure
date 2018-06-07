@@ -91,7 +91,7 @@ config:
     watchdog:       {}
     relengapi:
       token:  "${var.relengapi_token}"
-      host:   "https://api.pub.build.mozilla.org/"
+      host:   "api.pub.build.mozilla.org/"
   temporaryFolder:  /mnt/tmp
   webHookServer:
     provider:       webhooktunnel
