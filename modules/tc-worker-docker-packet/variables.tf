@@ -29,13 +29,13 @@ variable "log_port" {
 variable "taskcluster_worker_version" {
   type        = "string"
   description = "version of taskcluster-worker to install"
-  default     = "0.1.17"
+  default     = "0.1.18"
 }
 
 variable "taskcluster_worker_hash" {
   type        = "string"
   description = "hash of the binary, curl -L <url> | sha512sum -"
-  default     = "sha512-c93ff9a366d388e5d5a19818ef94b859528ec549bcdd478ddcc6eb8bae642bda76c987a34f92aa6ee13e222684fda5ab979621e845c4a5eaa5f5ada0475e1565"
+  default     = "sha512-0c2a721b52498be31bf3c0b9c166447018dffd18784b028b2237c8a5e32f067aafcc3254a27a3110a984a81086582c12ed8263c3a97eb6c671c32493f1643d46"
 }
 
 variable "taskcluster_client_id" {
