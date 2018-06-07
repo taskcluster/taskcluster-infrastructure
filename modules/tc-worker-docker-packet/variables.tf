@@ -29,7 +29,7 @@ variable "log_port" {
 variable "taskcluster_worker_version" {
   type        = "string"
   description = "version of taskcluster-worker to install"
-  default     = "0.1.18"
+  default     = "0.1.19"
 }
 
 variable "taskcluster_worker_hash" {
