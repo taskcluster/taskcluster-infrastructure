@@ -35,7 +35,7 @@ variable "taskcluster_worker_version" {
 variable "taskcluster_worker_hash" {
   type        = "string"
   description = "hash of the binary, curl -L <url> | sha512sum -"
-  default     = "sha512-0c2a721b52498be31bf3c0b9c166447018dffd18784b028b2237c8a5e32f067aafcc3254a27a3110a984a81086582c12ed8263c3a97eb6c671c32493f1643d46"
+  default     = "sha512-3beafe59d2009120fe923de976a3f954dc0918019d227d90cdef0b37987c609c37b1172e4808c13426bf17519e89ea6b05c1c8792cb6b702b49dca6a43048c76"
 }
 
 variable "taskcluster_client_id" {
