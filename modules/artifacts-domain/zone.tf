@@ -35,8 +35,8 @@ resource "aws_route53_record" "artifacts-domain-alias" {
   alias {
     name = "${aws_cloudfront_distribution.artifact_distribution.domain_name}"
 
-    // http://docs.aws.amazon.com/Route53/latest/APIReference/CreateAliasRRSAPI.html
-    zone_id                = "Z2FDTNDATAQYW2"
+    // https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resource-record-sets-choosing-alias-non-alias.html
+    zone_id                = "Z34G0DY7X0PABI"
     evaluate_target_health = false
   }
 }
