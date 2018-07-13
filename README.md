@@ -1,10 +1,20 @@
 Infrastructure Management for taskcluster
 =========================================
 
+To set up your local working environment run:
+ * `. <(pass terraform/secrets.sh)`
+ * Set AWS environment variables
+ * `terraform init`
+
 To run this do:
  * `. <(pass terraform/secrets.sh)`
  * Set AWS environment variables
  * Use `terraform validate|plan|apply`
+
+The `validate` step does not make any changes to the actual deployment.  The
+`plan` operation does not make changes but does acquire the state lock in order
+to run.  The `apply` step will acquire the state lock, but will only make
+changes if necessary.
 
 Any secrets added should be documented as variables in `secrets.tf` and added
 to the `terraform/secrets.sh` script in password-store.
