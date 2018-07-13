@@ -1,9 +1,12 @@
 data "aws_ami" "coreos" {
-  most_recent = true
-
   filter {
-    name   = "name"
-    values = ["CoreOS-stable-*"]
+    // Always be specific enough to only get single AMI.
+    // Feel free to update the version number, by searching in AWS console
+    // and finding a more recent one. Using most_recent = true, causes changes
+    // when coreos updates their AMIs, and breaks our ability to rollback.
+    name = "name"
+
+    values = ["CoreOS-stable-1688.5.3-*"]
   }
 
   filter {

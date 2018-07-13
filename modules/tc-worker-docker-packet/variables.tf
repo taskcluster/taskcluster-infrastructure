@@ -10,6 +10,12 @@ variable "packet_instance_type" {
   default     = "baremetal_0"
 }
 
+variable "concurrency" {
+  type        = "string"
+  description = "number of concurrent tasks to run on each worker machine"
+  default     = "1"
+}
+
 variable "log_host" {
   type        = "string"
   description = "hostname that log should be sent to, see also log_port"
@@ -23,13 +29,13 @@ variable "log_port" {
 variable "taskcluster_worker_version" {
   type        = "string"
   description = "version of taskcluster-worker to install"
-  default     = "0.1.16"
+  default     = "0.1.20"
 }
 
 variable "taskcluster_worker_hash" {
   type        = "string"
-  description = "accessToken to pass to the worker"
-  default     = "sha512-3469e02c92b3bb4b7f1d81115a060a41a07f66989b5297d0c06f410095f79c3dd30b3d78f7b2f44db6bb654a786d467da8b71fbfac644214f828c7b4b956aa6b"
+  description = "hash of the binary, curl -L <url> | sha512sum -"
+  default     = "sha512-1afaf834ee1c88e804ad42fbcb2839eee70db44d1b84dffe786b45974d6b7c04bc8ccb5ca5bcc8190d637b25c2175090fcb3d91837abbc5ae4eea84d4b3f1bec"
 }
 
 variable "taskcluster_client_id" {
@@ -77,4 +83,9 @@ variable "project" {
 variable "packet_project_id" {
   type        = "string"
   description = "packet project id"
+}
+
+variable "relengapi_token" {
+  type        = "string"
+  description = "Releng API token"
 }
