@@ -67,7 +67,7 @@ module "tc-worker-docker-v1-B1" {
 
 module "tc-worker-docker-v1-B4" {
   source                   = "modules/tc-worker-docker-packet"
-  number_of_machines       = "1"
+  number_of_machines       = "5"
   log_host                 = "${var.tc_worker_log_host}"
   log_port                 = "${var.tc_worker_log_port}"
   taskcluster_client_id    = "project/taskcluster/taskcluster-worker/terraform-packet/tc-worker-docker-v1"
