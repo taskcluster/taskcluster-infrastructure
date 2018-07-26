@@ -91,7 +91,7 @@ config:
     watchdog:       {}
     relengapi:
       token:  "${var.relengapi_token}"
-      host:   "api.pub.build.mozilla.org"
+      domain: "mozilla-releng.net"
   temporaryFolder:  /mnt/tmp
   webHookServer:
     provider:       localhost
