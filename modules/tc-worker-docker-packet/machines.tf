@@ -94,7 +94,7 @@ config:
       domain: "mozilla-releng.net"
   temporaryFolder:  /mnt/tmp
   webHookServer:
-    provider:       webhooktunnel
+    provider:       localhost
   worker:
     concurrency:          ${var.concurrency}
     minimumReclaimDelay:  30
