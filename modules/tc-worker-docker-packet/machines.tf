@@ -94,7 +94,7 @@ config:
       host:   "api.pub.build.mozilla.org"
   temporaryFolder:  /mnt/tmp
   webHookServer:
-    provider:       webhooktunnel
+    provider:       localhost
   worker:
     concurrency:          ${var.concurrency}
     minimumReclaimDelay:  30
