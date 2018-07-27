@@ -37,3 +37,4 @@ variable "artifacts_logging_bucket" {
   type    = "string"
   default = "taskcluster-public-artifacts-logs"
 }
+

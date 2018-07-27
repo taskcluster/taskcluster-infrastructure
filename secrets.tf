@@ -111,3 +111,22 @@ variable "taskcluster_net_san_tls_key" {
 variable "tc_worker_docker_relengapi_token" {
   type = "string"
 }
+
+variable "docker_worker_private_key" {
+}
+
+variable "docker_worker_ssl_certificate" {
+}
+
+variable "docker_worker_cert_key" {
+}
+
+variable "ssh_pub_key" {
+  type = "string"
+  description = "SSH public key to store in the machine"
+}
+
+variable "ssh_priv_key" {
+  type = "string"
+  description = "SSH private key to access the machine"
+}
