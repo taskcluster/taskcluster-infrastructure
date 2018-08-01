@@ -129,3 +129,7 @@ variable "ssh_priv_key" {
 }
 
 variable "stateless_hostname" {}
+
+variable "releng_aws_account_id" {
+  type = "string"
+}
