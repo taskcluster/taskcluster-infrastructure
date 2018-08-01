@@ -111,3 +111,7 @@ variable "taskcluster_net_san_tls_key" {
 variable "tc_worker_docker_relengapi_token" {
   type = "string"
 }
+
+variable "releng_aws_account_id" {
+  type = "string"
+}
