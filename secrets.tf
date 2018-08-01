@@ -130,3 +130,7 @@ variable "ssh_priv_key" {
   type = "string"
   description = "SSH private key to access the machine"
 }
+
+variable "releng_aws_account_id" {
+  type = "string"
+}
