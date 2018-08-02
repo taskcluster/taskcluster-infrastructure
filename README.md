@@ -8,6 +8,7 @@ To set up your local working environment run:
 
 To run this do:
  * `. <(pass terraform/secrets.sh)`
+ * `. ./import-docker-worker-secrets.sh`
  * Set AWS environment variables
  * Use `terraform validate|plan|apply`
 

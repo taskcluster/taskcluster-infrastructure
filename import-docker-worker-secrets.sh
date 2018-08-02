@@ -3,21 +3,11 @@
 # This script reads docker-worker store in passwordstore and writes
 # up deploy.json.
 #
-# Use: deploy/bin/import-docker-worker-secrets
+# Use: . ./import-docker-worker-secrets
 #
 # Notice you must have taskcluster passwordstore cloned and configured.
 # See ssh://gitolite3@git-internal.mozilla.org/taskcluster/secrets.git
 # for details.
-
-base_dir=/tmp
-
-read -s -p "Enter your gpg passphrase, or enter for none (e.g., Yubikey): " passphrase
-if [ -n "$passphrase" ]; then
-    export PASSWORD_STORE_GPG_OPTS="--passphrase=$passphrase"
-else
-    echo
-    echo '(no passphrase set)'
-fi
 
 echo 'decrypting..'
 export TF_VAR_docker_worker_private_key=$(pass show docker-worker/shared-env-var-key)
@@ -95,4 +85,3 @@ export TF_VAR_docker_worker_cert_key=$(pass show tls/star.taskcluster-worker.net
   }
 '
 )
-

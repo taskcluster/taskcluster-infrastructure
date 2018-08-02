@@ -54,6 +54,6 @@ EOF
 }
 
 resource "aws_iam_role_policy_attachment" "ciduty_access" {
-    role       = "${aws_iam_role.ciduty_access.name}"
-    policy_arn = "${aws_iam_policy.ciduty_access.arn}"
+  role       = "${aws_iam_role.ciduty_access.name}"
+  policy_arn = "${aws_iam_policy.ciduty_access.arn}"
 }
