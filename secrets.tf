@@ -133,3 +133,8 @@ variable "stateless_hostname" {}
 variable "releng_aws_account_id" {
   type = "string"
 }
+
+variable "secops_cloudtrail_bucket" {
+  type        = "string"
+  description = "Bucket to which we send cloudtrail logs for secops."
+}
