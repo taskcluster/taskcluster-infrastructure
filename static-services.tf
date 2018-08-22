@@ -150,8 +150,8 @@ module "statsum" {
   runtime_description = "statsum metrics aggregator"
   runtime_port_map    = "443:12345"
   runtime_command     = "go-wrapper run server"
-  image_tag           = "jonasfj/statsum"
-  image_hash          = "b8e12b57ef3fa430a5f7b0281098d5c488afae136012be7f8551ada9053065b6"
+  image_tag           = "taskcluster/statsum:v11"
+  image_hash          = "cfca309484288982d5deedddc905f31cddfd2958c41036d2b1e41c4587a996a7"
 
   providers = {
     aws = "aws.us-west-2"
