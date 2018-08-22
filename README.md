@@ -4,12 +4,11 @@ Infrastructure Management for taskcluster
 To set up your local working environment run:
  * `. <(pass terraform/secrets.sh)`
  * Set AWS environment variables
+ * `. ./import-docker-worker-secrets.sh`
  * `terraform init`
 
 To run this do:
- * `. <(pass terraform/secrets.sh)`
- * `. ./import-docker-worker-secrets.sh`
- * Set AWS environment variables
+ * (setup steps above)
  * Use `terraform validate|plan|apply`
 
 The `validate` step does not make any changes to the actual deployment.  The
