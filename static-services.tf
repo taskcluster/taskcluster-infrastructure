@@ -167,6 +167,29 @@ TLS_KEY=${base64encode(var.taskcluster_net_san_tls_key)}
 EOF
 }
 
+module "docs" {
+  source              = "modules/static-service"
+  log_host            = "${var.static_service_log_host}"
+  log_port            = "${var.static_service_log_port}"
+  security_groups     = ["${aws_security_group.basic_https.id}"]
+  nametag             = "Docs"
+  servicetag          = "docs"
+  instance_type       = "c4.2xlarge"
+  runtime_name        = "docs"
+  runtime_description = "docs"
+  runtime_port_map    = "80:80"
+  runtime_command     = "nginx -g 'daemon off;'"
+  image_tag           = "imbstack/taskcluster-docs:SVC-abd618cd9bb7"
+  image_hash          = "1d6fb08dea944c7ee78c4044a81a8c75d110c83a66564dc9181746b607a19ae9"
+
+  providers = {
+    aws = "aws.us-west-2"
+  }
+
+  # no env vars needed for this service
+  env_vars = ""
+}
+
 module "webhooktunnel" {
   source              = "modules/static-service"
   log_host            = "${var.static_service_log_host}"
@@ -239,6 +262,10 @@ output stateless_dns_ips {
 
 output statsum_ips {
   value = "${module.statsum.static_ips}"
+}
+
+output docs_ips {
+  value = "${module.docs.static_ips}"
 }
 
 output webhooktunnel_ips {
