@@ -150,8 +150,8 @@ module "statsum" {
   runtime_description = "statsum metrics aggregator"
   runtime_port_map    = "443:12345"
   runtime_command     = "go-wrapper run server"
-  image_tag           = "jonasfj/statsum"
-  image_hash          = "b8e12b57ef3fa430a5f7b0281098d5c488afae136012be7f8551ada9053065b6"
+  image_tag           = "taskcluster/statsum:v12"
+  image_hash          = "8f3f53fe743fc82c16038d8210867bd17531b9c245a19187544e94eee2c8d319"
 
   providers = {
     aws = "aws.us-west-2"
@@ -164,6 +164,7 @@ SENTRY_DSN=${var.statsum_sentry_dsn}
 SIGNALFX_TOKEN=${var.statsum_signalfx_token}
 TLS_CERTIFICATE=${base64encode(var.taskcluster_net_san_tls_certs)}
 TLS_KEY=${base64encode(var.taskcluster_net_san_tls_key)}
+PROFILE=1
 EOF
 }
 
