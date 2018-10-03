@@ -130,3 +130,7 @@ resource "aws_kinesis_firehose_delivery_stream" "taskcluster_audit_logs_firehose
     }
   }
 }
+
+output "audit_logs_stream_arn" {
+  value = "${aws_kinesis_stream.taskcluster_audit_logs.arn}"
+}
