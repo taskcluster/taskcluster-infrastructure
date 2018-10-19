@@ -19,6 +19,19 @@ resource "aws_iam_policy" "ciduty_access" {
             "Resource": "*"
         },
         {
+            "Sid": "VisualEditorOneMillion",
+            "Effect": "Allow",
+            "Action": [
+              "ec2:TerminateInstances"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                  "ec2:ResourceTag/Owner": "ec2-manager-production"
+                }
+            }
+        },
+        {
             "Sid": "VisualEditor1",
             "Effect": "Deny",
             "Action": "ec2:GetPasswordData",
