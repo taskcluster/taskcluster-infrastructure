@@ -127,6 +127,7 @@ export WORKER_GROUP='${var.worker_group_prefix}-${var.facility}'
 export WORKER_ID='${var.worker_id_prefix}-${count.index}'
 export RELENG_API_TOKEN='${var.relengapi_token}'
 export STATELESS_HOSTNAME='${var.stateless_hostname}'
+export TASKCLUSTER_ROOT_URL='https://taskcluster.net'
 EOF
   }
 
