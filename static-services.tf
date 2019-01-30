@@ -202,7 +202,7 @@ module "cloud-mirror-copiers" {
   log_host                    = "${var.static_service_log_host}"
   log_port                    = "${var.static_service_log_port}"
   security_groups             = ["${aws_security_group.deny_all.id}"]
-  instances                   = 2
+  instances                   = 4
   service_copies_per_instance = 3
   nametag                     = "Cloud-Mirror Copiers"
   servicetag                  = "cloud-mirror-copiers"
