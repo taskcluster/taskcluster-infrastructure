@@ -65,7 +65,7 @@ data "ignition_systemd_unit" "debug_logging" {
   dropin = [
     {
       name    = "10-debug.conf"
-      content = "[Service]\nEnvironment=SYSTEMD_LOG_LEVEL=debug"
+      content = "[Service]\nEnvironment=SYSTEMD_LOG_LEVEL=info"
     },
   ]
 }
