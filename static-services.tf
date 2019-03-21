@@ -168,32 +168,33 @@ PROFILE=0
 EOF
 }
 
-module "webhooktunnel" {
+module "websocktunnel" {
   source              = "modules/static-service"
   log_host            = "${var.static_service_log_host}"
   log_port            = "${var.static_service_log_port}"
   security_groups     = ["${aws_security_group.basic_https.id}"]
-  nametag             = "Webhook Tunnel"
-  servicetag          = "webhooktunnel"
+  nametag             = "Websock Tunnel"
+  servicetag          = "websocktunnel"
   instance_type       = "t2.medium"
-  runtime_name        = "webhooktunnel"
-  runtime_description = "tunnel for webhooks"
-  runtime_port_map    = "443:12345"
-  image_tag           = "taskcluster/webhooktunnel"
-  image_hash          = "ed9a8c9f3949f3c8251d1d9a1ae3cfb0aaa99d584b707d12acfdf60f356cc3d5"
+  runtime_name        = "websocktunnel"
+  runtime_description = "websocktunnel server"
+  runtime_port_map    = "443:443"
+  image_tag           = "taskcluster/websocktunnel"
+  image_hash          = "4d6efac74c822eaf7193da0855a8730077b7d7d4ae707f7162b24800ffbbf51b"
 
   providers = {
     aws = "aws.us-west-2"
   }
 
   env_vars = <<EOF
-PORT=12345
+PORT=443
 ENV=production
-HOSTNAME=${var.webhooktunnel_hostname}
-TASKCLUSTER_PROXY_SECRET_A=${var.webhooktunnel_secret_a}
-TASKCLUSTER_PROXY_SECRET_B=${var.webhooktunnel_secret_b}
+HOSTNAME=${var.websocktunnel_hostname}
+TASKCLUSTER_PROXY_SECRET_A=${var.websocktunnel_secret_a}
+TASKCLUSTER_PROXY_SECRET_B=${var.websocktunnel_secret_b}
 TLS_CERTIFICATE=${base64encode(var.star_tasks_build_tls_certs)}
 TLS_KEY=${base64encode(var.star_tasks_build_tls_key)}
+AUDIENCE=taskcluster-net
 EOF
 }
 
@@ -242,6 +243,6 @@ output statsum_ips {
   value = "${module.statsum.static_ips}"
 }
 
-output webhooktunnel_ips {
-  value = "${module.webhooktunnel.static_ips}"
+output websocktunnel_ips {
+  value = "${module.websocktunnel.static_ips}"
 }

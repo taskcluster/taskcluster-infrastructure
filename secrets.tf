@@ -52,15 +52,15 @@ variable "statsum_signalfx_token" {
   type = "string"
 }
 
-variable "webhooktunnel_hostname" {
+variable "websocktunnel_hostname" {
   type = "string"
 }
 
-variable "webhooktunnel_secret_a" {
+variable "websocktunnel_secret_a" {
   type = "string"
 }
 
-variable "webhooktunnel_secret_b" {
+variable "websocktunnel_secret_b" {
   type = "string"
 }
 
