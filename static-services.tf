@@ -180,7 +180,7 @@ module "websocktunnel" {
   runtime_description = "websocktunnel server"
   runtime_port_map    = "443:443"
   image_tag           = "taskcluster/websocktunnel"
-  image_hash          = "4d6efac74c822eaf7193da0855a8730077b7d7d4ae707f7162b24800ffbbf51b"
+  image_hash          = "0e26dced9c32e17211924c31bf8dbcc5470c8d7aff6fd69c2b30e550e8d7269f"
 
   providers = {
     aws = "aws.us-west-2"
