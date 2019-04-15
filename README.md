@@ -40,3 +40,23 @@ field that can be updated to deploy a new version of the service. The
 `image_hash` is the `sha256 Digest` of an image. Once you update this field and
 `terraform apply`, the ec2 instance will be replaced by a new one (this does
 involve downtime!) and the eip will be hooked into the new instance.
+
+Troubleshooting
+---------------
+
+# packet.net
+
+## Error: Error locking state: Error acquiring the state lock: storage:
+service returned error: StatusCode=409, ErrorCode=LeaseAlreadyPresent,
+ErrorMessage=There is already a lease present.
+
+You will need to manually break the terraform lease to perform *any* further
+actions. The lease is attached to a terraform state blob that lives in Azure.
+
+To break the lease:
+* open the Azure portal
+* navigate to Resources
+* open tcterraformstate->Blobs->tfstate
+* click on the three-dots menu for the state-test2.tf blob, and select "Break lease"
+
+See also https://github.com/hashicorp/terraform/issues/17046#issuecomment-359597285
