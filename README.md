@@ -14,9 +14,9 @@ To set up your local working environment run:
  * `. ./import-docker-worker-secrets.sh`
  * `terraform init`
 
-To run this do:
- * (setup steps above)
- * Use `terraform validate|plan|apply`
+## Usage
+After performing the setup steps above run:
+ * `terraform validate|plan|apply`
 
 The `validate` step does not make any changes to the actual deployment.  The
 `plan` operation does not make changes but does acquire the state lock in order
