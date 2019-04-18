@@ -67,6 +67,12 @@ by another `terraform apply` attempt. I have had little success in simply
 re-`apply`ing because usually something has failed to install properly and
 the instance state will be unknown.
 
+```
+# e.g. If machine-23 fails to instantiate...
+terraform destroy -target packet_device.docker_worker[23] -auto-approve
+terraform apply -target packet_device.docker_worker[23] -auto-approve
+```
+
 Depending on when in the `apply` process the error occurs, running `apply`
 repeatedly can sometimes spawn multiple instances with the same name. You
 can check for this in the Servers list of the packet.net UI, where you can
