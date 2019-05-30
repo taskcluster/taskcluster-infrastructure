@@ -59,7 +59,7 @@ EOF
   "sslCertificateLocation": "/tmp/docker-worker.crt",
   "sslKeyLocation": "/tmp/docker-worker-cert.key",
   "cotSigningKey": "/tmp/docker-worker-cot-signing.key",
-  "papertrail": "logs2.papertrailapp.com:22395"
+  "papertrail": "logs.papertrailapp.com:52806"
 }
 EOF
   }
