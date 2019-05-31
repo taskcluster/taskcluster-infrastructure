@@ -1,6 +1,6 @@
 module "docker_worker" {
   source                   = "modules/docker-worker"
-  number_of_machines       = "25"
+  number_of_machines       = "40"
   packet_instance_type     = "c1.small.x86"
   concurrency              = "4"
   provisioner_id           = "terraform-packet"
