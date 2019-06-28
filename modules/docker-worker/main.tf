@@ -7,6 +7,7 @@ resource "packet_device" "docker_worker" {
   facility         = "${var.facility}"
   operating_system = "ubuntu_14_04"
   billing_cycle    = "hourly"
+  tags             = ["desired_worker_count:${var.concurrency}"]
 
   connection {
     type        = "ssh"
