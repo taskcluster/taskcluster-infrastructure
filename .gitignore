@@ -1,3 +1,4 @@
 ./env
 ./state.tf
 .terraform/
+./logs
