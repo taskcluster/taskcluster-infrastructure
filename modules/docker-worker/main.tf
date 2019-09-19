@@ -90,7 +90,6 @@ EOF
       "PAPERTRAIL=${var.papertrail} deploy/packer/base/scripts/configure_syslog.sh",
       "PAPERTRAIL=${var.papertrail} deploy/packer/base/scripts/packages.sh",
       "PAPERTRAIL=${var.papertrail} deploy/packer/base/scripts/node.sh",
-      "sudo unattended-upgrade",
       "sudo bash -c 'echo net.ipv4.tcp_challenge_ack_limit = 999999999 >> /etc/sysctl.conf'",
       "deploy/bin/gen-signing-key",
       "npm install -g yarn",
