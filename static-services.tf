@@ -198,40 +198,6 @@ AUDIENCE=taskcluster-net
 EOF
 }
 
-module "cloud-mirror-copiers" {
-  source                      = "modules/static-service"
-  log_host                    = "${var.static_service_log_host}"
-  log_port                    = "${var.static_service_log_port}"
-  security_groups             = ["${aws_security_group.deny_all.id}"]
-  instances                   = 4
-  service_copies_per_instance = 3
-  nametag                     = "Cloud-Mirror Copiers"
-  servicetag                  = "cloud-mirror-copiers"
-  instance_type               = "c4.8xlarge"
-  runtime_name                = "cloudmirrorcopiers"
-  runtime_description         = "cloud-mirror processes to copy data from region to region"
-  image_tag                   = "taskcluster/cloud-mirror"
-  image_hash                  = "f9aa7c009de17504da08e4725a3c6cfb1a3785bdd2cfdb5f05dc53ac8fa54182"
-
-  providers = {
-    aws = "aws.us-west-2"
-  }
-
-  env_vars = <<EOF
-DEBUG=* -aws -babel -base:validator -eslint* -express:* -sqs-consumer -superagent -base:stats -cloud-mirror:aws-* -taskcluster-lib-monitor
-NODE_ENV=production
-AWS_ACCESS_KEY_ID=${var.cloudmirror_aws_access_key_id}
-AWS_SECRET_ACCESS_KEY=${var.cloudmirror_aws_secret_access_key}
-PULSE_USERNAME=${var.cloudmirror_pulse_username}
-PULSE_PASSWORD=${var.cloudmirror_pulse_password}
-REDIS_HOST=${var.cloudmirror_redis_host}
-REDIS_PASS=${var.cloudmirror_redis_pass}
-REDIS_PORT=${var.cloudmirror_redis_port}
-TASKCLUSTER_CLIENT_ID=${var.cloudmirror_tc_client_id}
-TASKCLUSTER_ACCESS_TOKEN=${var.cloudmirror_tc_access_token}
-EOF
-}
-
 # The following outputs are all static ip addresses that we can point
 # dns at even when the underlying instance changes
 
