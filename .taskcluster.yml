@@ -1,30 +1,36 @@
-version: 0
-allowPullRequests: public
-metadata:
-  name: "Taskcluster Terraform Tests"
-  description: "Simple checks for validity of terraform module"
-  owner: "{{ event.head.user.email }}"
-  source: "{{ event.head.repo.url }}"
+version: 1
+policy:
+  pullRequests: public
 tasks:
-  - provisionerId: "{{ taskcluster.docker.provisionerId }}"
-    workerType: "{{ taskcluster.docker.workerType }}"
-    extra:
-      github:
-        env: true
-        events:
-          - pull_request.opened
-          - pull_request.synchronize
-          - pull_request.reopened
-          - push
+  $let:
+    head_rev:
+      $if: 'tasks_for == "github-pull-request"'
+      then: ${event.pull_request.head.sha}
+      else: ${event.after}
+    repository:
+      $if: 'tasks_for == "github-pull-request"'
+      then: ${event.pull_request.head.repo.clone_url}
+      else: ${event.repository.clone_url}
+  in:
+  - provisionerId: 'proj-taskcluster'
+    workerType: 'ci'
+    created: {$fromNow: ''}
+    deadline: {$fromNow: '1 hour'}
     payload:
       maxRunTime: 3600
       image: "jonatanblue/gitlab-ci-terraform:latest"
       command:
-        - "/bin/bash"
-        - "-lc"
-        - "git clone {{event.head.repo.url}} repo && cd repo && git checkout {{event.head.sha}} && terraform fmt -check"
+        - /bin/bash
+        - '--login'
+        - '-c'
+        - >-
+          git clone ${repository} repo &&
+          cd repo &&
+          git config advice.detachedHead false &&
+          git checkout ${head_rev} &&
+          terraform fmt -check
     metadata:
-      name: "Taskcluster Terraform Tests"
-      description: "Simple checks for validity of terraform module"
-      owner: "{{ event.head.user.email }}"
-      source: "{{ event.head.repo.url }}"
+      name: test
+      description: Tests for tc-infrastructure
+      owner: nobody@mozilla.com
+      source: https://github.com/taskcluster/taskcluster-infrastructure
