@@ -18,7 +18,7 @@ resource "packet_device" "docker_worker" {
   user_data = <<EOF
 #cloud-config
 #image_repo=https://gitlab.com/walac/packet-images
-#image_tag=905622ba48e27c12497df170ed34a0a25c02034b
+#image_tag=dd807cb6fea560c418a31990bc0cbff7568fa32f
 #taskclusterRootUrl=https://taskcluster.net
 #clientId=${var.taskcluster_client_id}
 #accessToken=${var.taskcluster_access_token}
