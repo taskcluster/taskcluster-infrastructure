@@ -1,0 +1,12 @@
+[Unit]
+Description=Taskcluster docker worker
+Wants=docker.service
+After=docker.service
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/start-docker-worker
+User=root
+
+[Install]
+RequiredBy=graphical.target

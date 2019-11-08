@@ -24,6 +24,10 @@ variable "tc_worker_docker_access_token" {
   type = "string"
 }
 
+variable "tc_worker_docker_access_token_ffci" {
+  type = "string"
+}
+
 variable "static_service_log_host" {
   type = "string"
 }
