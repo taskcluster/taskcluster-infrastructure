@@ -21,9 +21,19 @@ variable "taskcluster_client_id" {
   description = "clientId to pass to the worker"
 }
 
+variable "taskcluster_client_id_ffci" {
+  type        = "string"
+  description = "clientId of firefox-ci deployment"
+}
+
 variable "taskcluster_access_token" {
   type        = "string"
   description = "accessToken to pass to the worker"
+}
+
+variable "taskcluster_access_token_ffci" {
+  type        = "string"
+  description = "accessToken of firefox-ci deployment"
 }
 
 variable "provisioner_id" {
