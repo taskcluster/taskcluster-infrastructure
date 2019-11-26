@@ -117,6 +117,7 @@ chmod +x /usr/local/bin/start-worker
 
 systemctl enable docker-worker
 
+/lib/systemd/set-cpufreq
 systemctl restart syslog
 cp /tmp/docker.service /lib/systemd/system/
 systemctl daemon-reload
